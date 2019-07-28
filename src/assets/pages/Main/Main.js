@@ -2,28 +2,40 @@ import React, { Component } from "react";
 import InputField from "../../components/Input";
 
 class Main extends Component {
-    state = {
-        inputField: "",
-        submitted: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputField: "",
+            inputFieldList: [],
+        }
     }
 
     handleInput = event => {
         this.setState({
-            inputField: event.target.value
+            inputField: event.target.value,
         })
+        // console.log(event.target.value)
     }
 
     handleInputSubmit = event => {
         event.preventDefault();
-        console.log("Input Field: ", this.state.inputField);
+        // console.log("Input Field: ", this.state.inputField);
         this.setState({
-            submitted: true
+            inputFieldList: this.state.inputFieldList.concat(this.state.inputField)
         })
+        // console.log("Input array test in submit handler: ", this.state.inputFieldList)
     }
 
     renderInfo() {
         return (
-            <p>{this.state.inputField}</p>
+            // console.log("Array test in render function: " + this.state.inputFieldList);
+            <div>
+                <ul>
+                    {this.state.inputFieldList.map(item => (
+                        <ul key={item}>{item}</ul>
+                    ))}
+                </ul>
+            </div>
         )
     }
     render() {
@@ -34,7 +46,7 @@ class Main extends Component {
                 handleInputSubmit={this.handleInputSubmit}
                 />
 
-                {this.state.submitted && this.renderInfo()}
+                {this.renderInfo()}
 
             </div>
         )
