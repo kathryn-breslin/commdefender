@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import InputField from "../../components/Input";
+import Results from "../../components/Results";
+import { Container, Row, Col } from "../../components/Grid";
+import "./Main.css";
 
 class Main extends Component {
     constructor(props) {
         super(props);
+        this.handleInput = this.handleInput.bind(this);
+        this.handleInputSubmit = this.handleInputSubmit.bind(this);
+
         this.state = {
             inputField: "",
             inputFieldList: [],
@@ -21,7 +27,7 @@ class Main extends Component {
         event.preventDefault();
         // console.log("Input Field: ", this.state.inputField);
         this.setState({
-            inputFieldList: this.state.inputFieldList.concat(this.state.inputField)
+            inputFieldList: this.state.inputFieldList.concat(this.state.inputField),
         })
         // console.log("Input array test in submit handler: ", this.state.inputFieldList)
     }
@@ -29,25 +35,45 @@ class Main extends Component {
     renderInfo() {
         return (
             // console.log("Array test in render function: " + this.state.inputFieldList);
-            <div>
-                <ul>
-                    {this.state.inputFieldList.map(item => (
-                        <ul key={item}>{item}</ul>
-                    ))}
-                </ul>
-            </div>
+
+            <ul>
+                {this.state.inputFieldList.map(item => (
+                    // <ResultsGroup>
+                    <Results key={item}>
+                        Title: {item}
+                    </Results>
+                    // </ResultsGroup>
+                ))}
+            </ul>
+
         )
     }
     render() {
         return (
             <div>
-                <InputField
-                handleInput={this.handleInput}
-                handleInputSubmit={this.handleInputSubmit}
-                />
-
-                {this.renderInfo()}
-
+                <Container>
+                    <Row>
+                        <Col size="md-8" />
+                        <Col size="md-4">
+                            <InputField
+                                handleInput={this.handleInput}
+                                handleInputSubmit={this.handleInputSubmit}
+                            />
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
+                        <Col size="md-12">
+                            <div id="group">
+                                <h1>Subject List</h1>
+                                <div id="renderGroup">
+                                    {this.renderInfo()}
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }
