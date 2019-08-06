@@ -5,13 +5,9 @@ import { Container, Row, Col } from "../../components/Grid";
 import "./Main.css";
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            inputField: "",
-            inputFieldList: [],
-        }
+    state = {
+        inputField: "",
+        inputFieldList: [],
     }
 
     handleInput = event => {
@@ -19,26 +15,22 @@ class Main extends Component {
         this.setState({
             [name]: value
         })
-        // console.log(event.target.value)
     }
 
     handleInputSubmit = event => {
         const {inputFieldList, inputField} = this.state;
 
         event.preventDefault();
-        // console.log("Input Field: ", this.state.inputField);
         this.setState({
             inputField: "",
             inputFieldList: inputFieldList.concat(inputField),
         })
-        // console.log("Input array test in submit handler: ", this.state.inputFieldList)
 
     }
 
     renderInfo() {
         const {inputFieldList} = this.state;
         return (
-            // console.log("Array test in render function: " + this.state.inputFieldList);
 
             <ul>
                 {inputFieldList.map((item, index) => (
