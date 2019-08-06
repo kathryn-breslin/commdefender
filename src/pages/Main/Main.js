@@ -25,21 +25,25 @@ class Main extends Component {
     }
 
     handleInputSubmit = event => {
+        const {inputFieldList, inputField} = this.state;
+
         event.preventDefault();
         // console.log("Input Field: ", this.state.inputField);
         this.setState({
             inputField: "",
-            inputFieldList: this.state.inputFieldList.concat(this.state.inputField),
+            inputFieldList: inputFieldList.concat(inputField),
         })
         // console.log("Input array test in submit handler: ", this.state.inputFieldList)
+
     }
 
     renderInfo() {
+        const {inputFieldList} = this.state;
         return (
             // console.log("Array test in render function: " + this.state.inputFieldList);
 
             <ul>
-                {this.state.inputFieldList.map(item => (
+                {inputFieldList.map(item => (
                     <Results 
                     key={item.id}
                     id={item.id}>
@@ -51,6 +55,8 @@ class Main extends Component {
         )
     }
     render() {
+        const {inputField} = this.state;
+    
         return (
             <div>
                 <Container>
@@ -58,7 +64,7 @@ class Main extends Component {
                         <Col size="md-8" />
                         <Col size="md-4">
                             <InputField
-                                inputField={this.state.inputField}
+                                inputField={inputField}
                                 handleInput={this.handleInput}
                                 handleInputSubmit={this.handleInputSubmit}
                             />
