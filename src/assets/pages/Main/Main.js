@@ -17,8 +17,9 @@ class Main extends Component {
     }
 
     handleInput = event => {
+        const { name, value } = event.target;
         this.setState({
-            inputField: event.target.value,
+            [name]: value
         })
         // console.log(event.target.value)
     }
@@ -27,6 +28,7 @@ class Main extends Component {
         event.preventDefault();
         // console.log("Input Field: ", this.state.inputField);
         this.setState({
+            inputField: "",
             inputFieldList: this.state.inputFieldList.concat(this.state.inputField),
         })
         // console.log("Input array test in submit handler: ", this.state.inputFieldList)
@@ -38,11 +40,11 @@ class Main extends Component {
 
             <ul>
                 {this.state.inputFieldList.map(item => (
-                    // <ResultsGroup>
-                    <Results key={item}>
+                    <Results 
+                    key={item.id}
+                    id={item.id}>
                         Title: {item}
                     </Results>
-                    // </ResultsGroup>
                 ))}
             </ul>
 
@@ -56,6 +58,7 @@ class Main extends Component {
                         <Col size="md-8" />
                         <Col size="md-4">
                             <InputField
+                                inputField={this.state.inputField}
                                 handleInput={this.handleInput}
                                 handleInputSubmit={this.handleInputSubmit}
                             />
