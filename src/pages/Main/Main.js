@@ -7,8 +7,6 @@ import "./Main.css";
 class Main extends Component {
     constructor(props) {
         super(props);
-        this.handleInput = this.handleInput.bind(this);
-        this.handleInputSubmit = this.handleInputSubmit.bind(this);
 
         this.state = {
             inputField: "",
@@ -43,9 +41,9 @@ class Main extends Component {
             // console.log("Array test in render function: " + this.state.inputFieldList);
 
             <ul>
-                {inputFieldList.map(item => (
+                {inputFieldList.map((item, index) => (
                     <Results 
-                    key={item.id}
+                    key={index}
                     id={item.id}>
                         Title: {item}
                     </Results>
