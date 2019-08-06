@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {InputField, Results, Container, Row, Col } from "../../components";
+import {InputField, Results, Container, Row, Col } from "components";
 import "./Main.css";
 
 class Main extends Component {
