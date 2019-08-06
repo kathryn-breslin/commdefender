@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import InputField from "../../components/Input";
-import Results from "../../components/Results";
-import { Container, Row, Col } from "../../components/Grid";
+import {InputField, Results, Container, Row, Col } from "../../components";
 import "./Main.css";
 
 class Main extends Component {
