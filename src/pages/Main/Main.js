@@ -8,14 +8,14 @@ class Main extends Component {
         inputFieldList: [],
     }
 
-    handleInput = event => {
+    handleInput = (event) => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         })
     }
 
-    handleInputSubmit = event => {
+    handleInputSubmit = (event) => {
         const {inputFieldList, inputField} = this.state;
 
         event.preventDefault();
