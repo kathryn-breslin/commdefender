@@ -5,7 +5,7 @@ import "./Main.css";
 class Main extends Component {
   state = {
     inputField: "",
-    inputFieldList: []
+    inputFieldList: [] as any
   };
 
   handleInput = (event: { target: { name: any; value: any } }) => {
@@ -22,7 +22,6 @@ class Main extends Component {
     this.setState({
       inputField: "",
       inputFieldList: inputFieldList.concat(inputField)
-      ///Argument of type 'string' is not assignable to parameter of type 'ConcatArray<never>'.ts(2345)
     });
   };
 
@@ -30,12 +29,12 @@ class Main extends Component {
     const { inputFieldList } = this.state;
     return (
       <ul>
-        {inputFieldList.map((item, index) => (
+        {inputFieldList.map((item: React.ReactNode, index: string | number | undefined) => (
           <Results key={index}>
             {/* // id={item.id}> */}
             Title: {item}
           </Results>
-        ))}
+        ))} 
       </ul>
     );
   }
