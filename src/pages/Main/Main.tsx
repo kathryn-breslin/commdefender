@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import { InputField, Results } from "components";
 import "./Main.css";
 
+// Interfaces are a way for us to define the shape of our data. I use them a lot to define my state and props.
+// It's good practice to start your interface name with a capital I, then name it something descriptive of what it's defining the shape of.
+interface IState {
+  inputField: string; // the value of a subject is a string, so we can simply put "string" for the type of inputField
+  inputFieldList: string[]; // the value of this list is going to be an array of strings, so we can define it like: string[] OR Array<string>. I like the first syntax.
+}
+
 class Main extends Component {
-  state = {
+  // We can then apply the expected shape here, right after 'state', as seen below. You can then leave out any individual types in the individual properties.
+  state: IState = {
     inputField: "",
-    inputFieldList: [] as any
+    inputFieldList: []
   };
 
   handleInput = (event: { target: { name: any; value: any } }) => {
@@ -15,7 +23,7 @@ class Main extends Component {
     });
   };
 
-  handleInputSubmit = ( event: { preventDefault: () => void; }) => {
+  handleInputSubmit = (event: { preventDefault: () => void }) => {
     const { inputFieldList, inputField } = this.state;
 
     event.preventDefault();
@@ -29,12 +37,14 @@ class Main extends Component {
     const { inputFieldList } = this.state;
     return (
       <ul>
-        {inputFieldList.map((item: React.ReactNode, index: string | number | undefined) => (
-          <Results key={index}>
-            {/* // id={item.id}> */}
-            Title: {item}
-          </Results>
-        ))} 
+        {inputFieldList.map(
+          (item: React.ReactNode, index: string | number | undefined) => (
+            <Results key={index}>
+              {/* // id={item.id}> */}
+              Title: {item}
+            </Results>
+          )
+        )}
       </ul>
     );
   }
