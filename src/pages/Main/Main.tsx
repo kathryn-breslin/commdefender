@@ -40,13 +40,20 @@ class Main extends Component {
     });
   };
 
+  addBody = (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    console.log("This button has been clicked");
+  }
+
   renderInfo() {
     const { subjectList } = this.state;
     return (
       <ul>
         {subjectList.map(
           (item: React.ReactNode, index: string | number | undefined) => (
-            <Results key={index}>
+            <Results
+            addBody={this.addBody}
+            key={index}>
               Title: {item}
             </Results>
           )
