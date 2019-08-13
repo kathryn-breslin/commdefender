@@ -2,7 +2,7 @@ import React from "react";
 import "./InputField.css";
 
 interface IProps {
-  inputField: string;
+  subject: string;
   handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputSubmit: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -17,14 +17,14 @@ interface IProps {
 // So instead of `props` we destructure with curlies like `{ inputField, handleInput, handleInputSubmit }`.
 
 // We can then apply our interface as seen below, which would also be the same thing as (props: Props).
-const InputField = ({ inputField, handleInput, handleInputSubmit }: IProps) => (
+const InputField = ({ subject, handleInput, handleInputSubmit }: IProps) => (
   <form className="input-group mb-3" id="inputForm">
     <input
       id="input"
       type="text"
-      placeholder="Hello"
-      name="inputField"
-      value={inputField}
+      placeholder="Subject"
+      name="subject"
+      value={subject}
       onChange={handleInput}
       className="form-control"
     />
