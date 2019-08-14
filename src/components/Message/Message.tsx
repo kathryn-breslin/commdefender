@@ -1,13 +1,14 @@
 import React from "react";
 
 interface IProps {
-//   recipient: string;
+  recipient: string;
 //   body: string;
-  addBody: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+addBody: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
 }
 
-const Message = ({ addBody }: IProps) => (
+const Message = ({ recipient, handleInput, addBody }: IProps) => (
   <form>
     <div className="form-group">
       <label>Send To:</label>
@@ -16,6 +17,9 @@ const Message = ({ addBody }: IProps) => (
         className="form-control"
         id="recEmail"
         placeholder="example@gmail.com"
+        name="recipient"
+        value={recipient}
+        onChange={handleInput}
       />
     </div>
     <div className="form-group">

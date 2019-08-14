@@ -41,13 +41,13 @@ class Main extends Component {
   };
 
   addBody = (event: { preventDefault: () => void; }) => {
-    //   const { recipient, body } = this.state;
+      const { recipient } = this.state;
     event.preventDefault();
-    console.log("This button has been clicked");
+    console.log("This is the recipient:" + recipient);
   }
 
   renderInfo() {
-    const { subjectList } = this.state;
+    const { subjectList, recipient } = this.state;
     return (
       <ul>
         {subjectList.map(
@@ -56,7 +56,9 @@ class Main extends Component {
             key={index}>
               Title: {item}
               <Message
+              recipient={recipient}
               addBody={this.addBody}
+              handleInput={this.handleInput}
               />
             </Results>
           )
