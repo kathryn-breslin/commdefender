@@ -31,6 +31,13 @@ class Main extends Component {
     });
   };
 
+  handleTextInput = (event: { target: { name: any; value: any } }) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
   handleInputSubmit = (event: { preventDefault: () => void }) => {
     const { subject, subjectList } = this.state;
     event.preventDefault();
@@ -41,13 +48,14 @@ class Main extends Component {
   };
 
   addBody = (event: { preventDefault: () => void; }) => {
-      const { recipient } = this.state;
+    const { recipient, body } = this.state;
     event.preventDefault();
-    console.log("This is the recipient:" + recipient);
+    console.log("Recipient: " + recipient);
+    console.log('Body of Message: ' + body);
   }
 
   renderInfo() {
-    const { subjectList, recipient } = this.state;
+    const { subjectList, recipient, body } = this.state;
     return (
       <ul>
         {subjectList.map(
@@ -57,8 +65,10 @@ class Main extends Component {
               Title: {item}
               <Message
               recipient={recipient}
+              body={body}
               addBody={this.addBody}
               handleInput={this.handleInput}
+              handleTextInput={this.handleTextInput}
               />
             </Results>
           )
