@@ -3,20 +3,20 @@ import "./Results.css";
 
 interface IProps {
   children: React.ReactNode;
-  addBody: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+//   addBody: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const Results = ({ children, addBody }: IProps) => (
+const Results = ({ children }: IProps) => (
   <ul className="list-group" id="itemGroup">
     <li className="list-group-item" id="item">
       {children}
-      <button
+      {/* <button
         onClick={addBody}
         type="button"
         className="btn btn-outline-secondary"
       >
         Add Message
-      </button>
+      </button> */}
     </li>
   </ul>
 );

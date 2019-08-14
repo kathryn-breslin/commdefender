@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputField, Results } from "components";
+import { InputField, Results, Message } from "components";
 import "./Main.css";
 
 // Interfaces are a way for us to define the shape of our data. I use them a lot to define my state and props.
@@ -41,6 +41,7 @@ class Main extends Component {
   };
 
   addBody = (event: { preventDefault: () => void; }) => {
+    //   const { recipient, body } = this.state;
     event.preventDefault();
     console.log("This button has been clicked");
   }
@@ -52,9 +53,11 @@ class Main extends Component {
         {subjectList.map(
           (item: React.ReactNode, index: string | number | undefined) => (
             <Results
-            addBody={this.addBody}
             key={index}>
               Title: {item}
+              <Message
+              addBody={this.addBody}
+              />
             </Results>
           )
         )}
