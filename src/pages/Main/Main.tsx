@@ -6,32 +6,32 @@ import "./Main.css";
 // It's good to go back to the basics and think about the practical parts of what you're working on because how you name things can have an impact on your thinking,
 // and I suspect that's what's happening here.I may not have done a good job at communicating what to do, and that'll be mine to learn and get better at!
 
-// An email client, whether it be on the Inbox, Drafts, or Trash page, displays a list of messages.
+// An email client, whether it be on the Inbox, Drafts, or Trash page, displays a list of emails.
 // Generally speaking, the list only shows the subject rather than the entire email body, as well as maybe the date created and who sent it.
-// The subject, recipient, and body are all properties of a message, and to show any or all of those properties, we'll need a list of messages.
+// The subject, recipient, and body are all properties of an email, and to show any or all of those properties, we'll need a list of emails.
 
-// Generally speaking, a list of messages and the form to a compose a message are on separate pages but for what we're doing, we're going to keep them on the same page.
-// You can keep the form above or below the message list, it makes no difference.
+// Generally speaking, a list of emails and the form to a compose an email are on separate pages but for what we're doing, we're going to keep them on the same page.
+// You can keep the form above or below the email list, up to you.
 
 // The way I'd envision this to look is for an empty form to be on the page when it loads.
 // It has 3 inputs: recipient, subject and body.
-// It also has a button or buttons to submit the inputs.
-// After submitting, I'd be able to see my messsage--potentially just the subject--rendered on the page under "Messages List".
+// It also has a button to submit the form, or, in real application terms, send the email.
+// After submitting, I'd be able to see my email--potentially just the subject--rendered on the page under "Email List".
 
 // To translate that vision into code, I would know that I'd need an array to act as my list.
-// I would also know that once my subject, recipient and body were submitted, they'd be stored together as properties on an object since they're all just parts of one whole--a message.
-// Then, in rendering the list, I'd just pick and choose which properties on the message object I wanted to show.
+// I would also know that once my subject, recipient and body were submitted, they'd be stored together as properties on an object since they're all just parts of one whole--an email.
+// Then, in rendering the list, I'd just pick and choose which properties on the email object I wanted to show.
 
-// My message object would like this:
-interface IMessage {
+// My email object would like this:
+interface IEmail {
   subject: string;
   recipient: string;
   body: string;
 }
 
-// And because my message list is going to be a list of messages, my state would look like this:
+// And because my email list is going to be a list of emails, my state would look like this:
 interface IState {
-  messageList: IMessage[]; // an array of message objects
+  emailList: IEmail[]; // an array of email objects with the shape of IEmail
   subject: string;
   recipient: string;
   body: string;
@@ -39,7 +39,7 @@ interface IState {
 
 class Main extends Component {
   state: IState = {
-    messageList: [],
+    emailList: [],
     subject: "",
     recipient: "",
     body: ""
@@ -59,48 +59,48 @@ class Main extends Component {
     });
   };
 
-  // Upon submitting the values, I would then group the values from the inputs and set them as properties on a message object.
-  // I would then push the full message object onto the message list array.
+  // Upon submitting the values, I would then group the values from the inputs and set them as properties on an email object.
+  // I would then push the full email object onto the email list array.
   handleInputSubmit = (event: { preventDefault: () => void }) => {
-    const { subject, recipient, body, messageList } = this.state;
+    const { subject, recipient, body, emailList } = this.state;
     event.preventDefault();
 
-    const message = {
+    const email = {
       subject,
       recipient,
       body
     };
 
-    // If the above message variable looks confusing, see that it's the same as what's below:
-    // const message: {
+    // If the above email variable looks confusing, see that it's the same as what's below:
+    // const email: {
     //  subject: subject,
     //  recipient: recipient,
     //  body: body,
     // }
 
-    // Push the new message object onto the array of messages
-    messageList.push(message);
+    // Push the new email object onto the array of emails
+    emailList.push(email);
 
-    console.log("messageList :", messageList);
+    console.log("emailList :", emailList);
 
     this.setState({
       subject: "",
       recipient: "",
       body: "",
-      messageList // same here as const message --> messageList: messageList,
+      emailList // same here as const email --> emailList: emailList,
     });
   };
 
-  // To render the list, I would map over all the messages and for each one, I'd wrap it in a list item tag
+  // To render the list, I would map over all the emails and for each one, I'd wrap it in a list item tag
   // and only show the subject.
 
   // I would then render the result of all those list items in an unordered list tag.
   renderInfo() {
-    const { messageList } = this.state;
+    const { emailList } = this.state;
 
-    console.log("messageList :", messageList);
+    console.log("emailList :", emailList);
 
-    const messages = messageList.map((item, index) => {
+    const emails = emailList.map((item, index) => {
       return (
         <li key={index}>
           <p>{item.subject}</p>
@@ -108,7 +108,7 @@ class Main extends Component {
       );
     });
 
-    return <ul>{messages}</ul>;
+    return <ul>{emails}</ul>;
   }
 
   render() {
@@ -146,7 +146,7 @@ class Main extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Message Here:</label>
+                  <label>Body:</label>
                   <textarea
                     className="form-control"
                     id="recBody"
@@ -160,7 +160,7 @@ class Main extends Component {
                   type="button"
                   className="btn btn-outline-secondary"
                 >
-                  Add Message
+                  Send
                 </button>
               </form>
             </div>
@@ -170,7 +170,7 @@ class Main extends Component {
           <div className="row">
             <div className="col-12">
               <div id="group">
-                <h1>Messages List</h1>
+                <h1>Email List</h1>
                 <div id="renderGroup">{this.renderInfo()}</div>
               </div>
             </div>
