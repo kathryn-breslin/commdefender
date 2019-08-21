@@ -32,17 +32,17 @@ interface IEmail {
 // And because my email list is going to be a list of emails, my state would look like this:
 interface IState {
   emailList: IEmail[]; // an array of email objects with the shape of IEmail
-  subject: string;
-  recipient: string;
-  body: string;
+  subjectValue: string;
+  recipientValue: string;
+  bodyValue: string;
 }
 
 class Main extends Component {
   state: IState = {
     emailList: [],
-    subject: "",
-    recipient: "",
-    body: ""
+    subjectValue: "",
+    recipientValue: "",
+    bodyValue: ""
   };
 
   handleInput = (event: { target: { name: any; value: any } }) => {
@@ -62,32 +62,27 @@ class Main extends Component {
   // Upon submitting the values, I would then group the values from the inputs and set them as properties on an email object.
   // I would then push the full email object onto the email list array.
   handleInputSubmit = (event: { preventDefault: () => void }) => {
-    const { subject, recipient, body, emailList } = this.state;
+    const { subjectValue, recipientValue, bodyValue, emailList } = this.state;
     event.preventDefault();
 
     const email = {
-      subject,
-      recipient,
-      body
+      subject: subjectValue,
+      recipient: recipientValue,
+      body: bodyValue
     };
-
-    // If the above email variable looks confusing, see that it's the same as what's below:
-    // const email: {
-    //  subject: subject,
-    //  recipient: recipient,
-    //  body: body,
-    // }
 
     // Push the new email object onto the array of emails
     emailList.push(email);
 
+    console.log("email :", email);
+
     console.log("emailList :", emailList);
 
     this.setState({
-      subject: "",
-      recipient: "",
-      body: "",
-      emailList // same here as const email --> emailList: emailList,
+      subjectValue: "",
+      recipientValue: "",
+      bodyValue: "",
+      emailList: emailList
     });
   };
 
@@ -97,8 +92,6 @@ class Main extends Component {
   // I would then render the result of all those list items in an unordered list tag.
   renderInfo() {
     const { emailList } = this.state;
-
-    console.log("emailList :", emailList);
 
     const emails = emailList.map((item, index) => {
       return (
@@ -112,7 +105,11 @@ class Main extends Component {
   }
 
   render() {
-    const { subject, recipient, body } = this.state;
+    const {
+      subjectValue,
+      recipientValue: recipient,
+      bodyValue: body
+    } = this.state;
 
     return (
       <div>
@@ -141,7 +138,7 @@ class Main extends Component {
                     id="subject"
                     placeholder="Subject here"
                     name="subject"
-                    value={subject}
+                    value={subjectValue}
                     onChange={this.handleInput}
                   />
                 </div>
