@@ -32,7 +32,7 @@ interface IEmail {
 // And because my email list is going to be a list of emails, my state would look like this:
 interface IState {
   emailList: IEmail[]; // an array of email objects with the shape of IEmail
-  subjectValue: string;
+  subjectValue: string; // I'm going to suffix the input value properties with "-Value" to avoid confusion between them and the email property
   recipientValue: string;
   bodyValue: string;
 }
@@ -48,20 +48,13 @@ class Main extends Component {
   handleInput = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
-    });
-  };
-
-  handleTextInput = (event: { target: { name: any; value: any } }) => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
+      [`${name}Value`]: value // I had to update this key like so to support the new naming convention with -Value
     });
   };
 
   // Upon submitting the values, I would then group the values from the inputs and set them as properties on an email object.
   // I would then push the full email object onto the email list array.
-  handleInputSubmit = (event: { preventDefault: () => void }) => {
+  handleSubmit = (event: { preventDefault: () => void }) => {
     const { subjectValue, recipientValue, bodyValue, emailList } = this.state;
     event.preventDefault();
 
@@ -105,11 +98,7 @@ class Main extends Component {
   }
 
   render() {
-    const {
-      subjectValue,
-      recipientValue: recipient,
-      bodyValue: body
-    } = this.state;
+    const { subjectValue, recipientValue, bodyValue } = this.state;
 
     return (
       <div>
@@ -126,7 +115,7 @@ class Main extends Component {
                     id="recEmail"
                     placeholder="example@gmail.com"
                     name="recipient"
-                    value={recipient}
+                    value={recipientValue}
                     onChange={this.handleInput}
                   />
                 </div>
@@ -148,12 +137,12 @@ class Main extends Component {
                     className="form-control"
                     id="recBody"
                     name="body"
-                    value={body}
-                    onChange={this.handleTextInput}
+                    value={bodyValue}
+                    onChange={this.handleInput}
                   />
                 </div>
                 <button
-                  onClick={this.handleInputSubmit}
+                  onClick={this.handleSubmit}
                   type="button"
                   className="btn btn-outline-secondary"
                 >
