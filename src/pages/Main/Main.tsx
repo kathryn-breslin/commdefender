@@ -32,7 +32,7 @@ interface IEmail {
 // And because my email list is going to be a list of emails, my state would look like this:
 interface IState {
   emailList: IEmail[]; // an array of email objects with the shape of IEmail
-  subjectValue: string; // I'm going to suffix the input value properties with "-Value" to avoid confusion between them and the email property
+  subjectValue: string; // I'm going to suffix the input value properties with "-Value" to avoid confusion between them and the email properties
   recipientValue: string;
   bodyValue: string;
 }
